@@ -3,8 +3,7 @@ if(process.env.NODE_ENV !== "production") {
 require("dotenv").config();
 }
 
-//ng6JRPMhS11bLRi8
-//mongodb+srv://tanush5266:<db_password>@cluster0.r9xdqyt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -76,6 +75,10 @@ const sessionOptions = {
   }
 }
 
+app.use((req, res, next) => {
+  res.locals.currUser = req.user;
+  next();
+});
 
 app.get("/", (req, res) => {
    res.render("listings/index.ejs", { allListings });
