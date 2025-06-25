@@ -1,0 +1,90 @@
+.body{
+    font-family: "Inter", sans-serif;
+    display:flex;
+    font-weight: 500;
+    flex-direction:column;
+    min-height:100vh;
+    color:#fff;   
+}
+
+.body div{
+    color:#fff;
+}
+.btn-search i {
+    display: inline;
+    margin-right:0.5rem;
+}
+
+.inter-text {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+.navbar{
+    height:4rem;
+    background-color: white;
+}
+.navbar-brand{
+    display: inline;
+
+}
+
+.fa-brands{
+    font-size: 2rem;
+}
+
+.f-info-links,.f-info-socials,.f-info-brand{
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    width: 100%;
+}
+.f-info-socials i{
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size:1.2rem;
+    margin-right: 1rem;
+}
+.f-info-links:hover{
+    text-decoration: underline;
+}
+.f-info-links a{
+    text-decoration: none;
+}
+
+.f-info{
+    text-align: center;
+    display: flex;
+    flex-wrap:wrap;
+    height:8rem;
+    background-color: #f8f9fa;
+    color: #212529;
+    justify-content: center;
+    align-items: center;  
+}
+
+.card{
+    margin-bottom: 1rem;
+    margin-top: 1.5rem;
+}
+.card-img-overlay{
+    opacity:0;
+}
+.card-img-overlay:hover{
+    opacity:0.2;
+    background-color:white;
+}
+.card-text p{
+text-decoration: none;
+}
+.card-img-top{
+    height: 12rem !important;
+    object-fit: cover !important;
+    border-radius: 1rem !important;
+    border:none !important;
+}
+.listing-link{
+    text-decoration:none;
+}

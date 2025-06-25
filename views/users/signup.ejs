@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airbnb</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">    
+
+
+
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* background-color: #ff646f;  */
+    background-image: url("/images/bwallhaven-1q83qg.jpg");
+}
+
+
+.container {
+    display: flex;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+}
+
+
+
+.right-section {
+    padding: 20px;
+    padding-right: 40px;
+    width: 450px;
+}
+
+h1, h2 {
+    margin: 0;
+}
+
+h3 {
+    margin-bottom: 20px;
+}
+
+.highlight {
+    color: #e42935; /* Highlight color */
+}
+
+.image-container {
+    margin-top: 20px;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.google-btn {
+    background-color: #db4437; /* Google red */
+    color: white;
+}
+
+.facebook-btn {
+    background-color: #3b5998; /* Facebook blue */
+    color: white;
+}
+
+.login-btn {
+    background-color: rgb(243, 53, 53); /* Default purple */
+    color: white;
+    border-radius: 30px;
+    align-items: center;
+    justify-content: center;
+    width:50%;
+}
+
+input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 20px;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+}
+
+a {
+    color: #5A29E4;
+    text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+    
+ <div class="container">
+       
+        <div class="right-section ">
+            <h3>Welcome to <span class="highlight">AIRBNB</span></h3>
+            <button class="google-btn">Login with Google(no server)</button>
+            <button class="facebook-btn">Login with Facebook(no server)</button>
+            <hr>
+            
+            <div class="container">
+                <% if(success && success.length){ %>
+                <div class="alert alert-success alert-dismissible fade show col-6 offset-3" role="alert">
+                    <%= success %>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <% } %>
+
+                <% if(error && error.length){ %>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <%= error %>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <% } %>
+            </div>
+
+            <form action="/signup" method="POST">
+               
+                <label for="username" class="form-control">Username</label>
+                <input type="email" id="username" name="username" placeholder="username" required>
+
+                <label for="email" class="form-control">Email</label>
+                <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
+                
+                <label for="password" class="form-control">Password</label>
+                <input type="password" id="password" name="password" placeholder="********" required>
+                
+                <div class="checkbox-container">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Remember me</label>
+                </div>
+                
+                <button type="submit" class="login-btn">SignUp</button>
+                
+            </form>
+            <p>Already have an account? <a href="/login">Login</a></p>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+
+    <script src="/js/script.js"></script>
+    
+</body>
+</html>

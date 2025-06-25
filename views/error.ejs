@@ -1,0 +1,7 @@
+<% layout("/listings/layout/boilerplate.ejs") %>
+
+<div class="error-illustration text-center">
+  <img src="/images/error-404.jpg" alt="Error Illustration"
+    style="width: 70%; height: 70vh; object-fit: contain;">
+  <h1>Oops! <%= err.statusCode || 500 %> - <%= err.message %></h1>
+</div>
