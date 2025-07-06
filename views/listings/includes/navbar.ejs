@@ -1,51 +1,55 @@
 <style>
-  .search{
+  .search {
     border-radius: 25px !important;
   }
-  .search-inp{
+
+  .search-inp {
     border-radius: 25px !important;
-    width: 300px;
+    width: 100%;
+    max-width: 300px;
     padding-left: 40px;
   }
-  .search i{
-    display: inline;
-    margin-right: 0.5rem;
+
+  @media (max-width: 768px) {
+    .search-inp {
+      margin-top: 0.5rem;
+    }
   }
-</style>  
+</style>
+
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/listings"><i class="fa-brands fa-airbnb" style="color: #e32400;"></i></a><a class="navbar-brand" href="/listings" style="color: #e32400;">airbnb</a>
-  
+    <a class="navbar-brand d-flex align-items-center" href="/listings">
+      <i class="fa-brands fa-airbnb" style="color: #e32400;"></i>
+      <span class="ms-1" style="color: #e32400;">airbnb</span>
+    </a>
 
-   
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" >
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a class="nav-link" href="/listings">Explore</a>
         </li>
       </ul>
-    </div>
-    <div class="collapse navbar-collapse navbar-nav ms-auto" id="navbarNav">
-      <form class="d-flex" role="search" >
-        <input class="form-control me-2 search-inp" type="search" placeholder="search for destination " aria-label="Search"/>
-        <button class="btn btn-danger search d-flex align-items-center gap-1" type="submit" >
-  <i class="fa-solid fa-magnifying-glass"></i>
-  Search
-</button>
+
+      <form class="d-flex flex-wrap justify-content-end" role="search">
+        <input class="form-control me-2 search-inp" type="search" placeholder="search for destination" aria-label="Search" />
+        <button class="btn btn-danger search d-flex align-items-center gap-1" type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i> Search
+        </button>
       </form>
-    </div>
 
-
-      <div class="navbar-nav ms-auto">
+      <ul class="navbar-nav ms-3">
         <li class="nav-item">
-          <a class="nav-link" href="/listings/new">Airbnb your home </a>
+          <a class="nav-link" href="/listings/new">Airbnb your home</a>
         </li>
-        <% if (typeof currUser === 'undefined' || !currUser) { %>
+
+        <% if (!currUser) { %>
         <li class="nav-item">
-          <a class="nav-link active"  href="/signup"><b>SignUp</b></a>
+          <a class="nav-link" href="/signup"><b>SignUp</b></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/login"><b>LogIn</b></a>
@@ -55,9 +59,7 @@
           <a class="nav-link" href="/logout">LogOut</a>
         </li>
         <% } %>
-        
-      </div>
+      </ul>
     </div>
   </div>
 </nav>
- 

@@ -1,62 +1,62 @@
+// ✅ SEED FIXED WITH VALID IMAGES AND STRUCTURE
 const mongoose = require("mongoose");
-const { faker } = require("@faker-js/faker");
 const Listing = require("./models/listing");
 const Review = require("./models/reviews");
 const User = require("./models/user");
-require("dotenv").config();
 
-const dbURL = process.env.ATLASDB_URL;
+const dbURL = process.env.ATLASDB_URL || "mongodb://127.0.0.1:27017/wanderlust";
 
-async function seedDB() {
-  await mongoose.connect(dbURL);
-  console.log("✅ Connected to DB");
+const sampleImages = [
+  "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85",
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
+  "https://images.unsplash.com/photo-1599423300746-b62533397364",
+  "https://images.unsplash.com/photo-1570129477492-45c003edd2be",
+  "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb"
+];
 
-  await Listing.deleteMany({});
-  await Review.deleteMany({});
-  await User.deleteMany({});
+const seedDB = async () => {
+  try {
+    await mongoose.connect(dbURL);
+    console.log("\u2728 Connected to MongoDB");
 
-  // 1. Create demo user
-  const demoUser = new User({ username: "demo", email: "demo@gmail.com" });
-  const registeredUser = await User.register(demoUser, "demo@123");
+    await Listing.deleteMany({});
+    await Review.deleteMany({});
+    await User.deleteMany({});
 
-  // 2. Generate listings
-  for (let i = 0; i < 15; i++) {
-    const fakeTitle = faker.lorem.words(3);
-    const fakeDesc = faker.lorem.paragraph();
-    const fakeLocation = faker.location.city();
-    const fakeCountry = faker.location.country();
-    const fakePrice = faker.number.int({ min: 1000, max: 10000 });
+    const demoUser = new User({ username: "demo", email: "demo@gmail.com" });
+    const registeredUser = await User.register(demoUser, "demo@123");
 
-    const newListing = new Listing({
-      title: fakeTitle,
-      description: fakeDesc,
-      price: fakePrice,
-      location: fakeLocation,
-      country: fakeCountry,
-      image: {
-        url: `https://source.unsplash.com/600x400/?house,home,hotel&sig=${i}`,
-        filename: `house-${i}`
-      },
-      owner: registeredUser._id,
-    });
+    for (let i = 0; i < 8; i++) {
+      const sampleListing = new Listing({
+        title: `Sample Stay ${i + 1}`,
+        description: "Comfortable and scenic stay for travelers.",
+        image: {
+          filename: `seed-${i + 1}.jpg`,
+          url: sampleImages[i % sampleImages.length]
+        },
+        price: Math.floor(Math.random() * 5000) + 1000,
+        location: "Bangalore",
+        country: "India",
+        owner: registeredUser._id
+      });
 
-    // 3. Create 1–3 reviews per listing
-    const reviewCount = faker.number.int({ min: 1, max: 3 });
-    for (let j = 0; j < reviewCount; j++) {
       const review = new Review({
-        comment: faker.lorem.sentence(),
-        rating: faker.number.int({ min: 1, max: 5 }),
+        comment: "Loved the stay, would visit again!",
+        rating: 4,
         author: registeredUser._id
       });
+
       await review.save();
-      newListing.reviews.push(review);
+      sampleListing.reviews.push(review);
+      await sampleListing.save();
     }
 
-    await newListing.save();
+    console.log("\u2705 Seeded Listings, Reviews, and Demo User");
+    await mongoose.disconnect();
+  } catch (err) {
+    console.error("\u274C Seed error:", err);
+    process.exit(1);
   }
-
-  console.log("✅ Seeded Listings, Reviews, and Demo User");
-  mongoose.connection.close();
-}
+};
 
 module.exports = seedDB;
