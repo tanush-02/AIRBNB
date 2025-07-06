@@ -1,8 +1,9 @@
 <% layout("/listings/layout/boilerplate.ejs") %>
 
-<div class="row">
-    <div class="col-8 offset-2">  
-      <h3>Update Listing</h3>
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+    <h3>Update Listing</h3>
     <form method="POST" action="/listings/<%= listing._id %>?_method=PUT"
       novalidate class="needs-validation" enctype="multipart/form-data">
 
@@ -42,7 +43,6 @@
         <input required name="listing[country]" placeholder="enter country" type="text" class="form-control" value="<%= listing.country %>"/>
         <div class="invalid-feedback">Please enter valid country name</div>
       </div>
-      </div>
     
       <div class="mb-3">
         <label for="location" class="form-label">Location</label>
@@ -59,8 +59,7 @@
       <br>
      <button type="submit" class="btn btn-danger">Edit</button>
      <br>
+    </form>
     </div>
-   </div>
-    
-  </form>
-  
+  </div>
+</div>
