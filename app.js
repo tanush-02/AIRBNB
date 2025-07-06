@@ -26,22 +26,27 @@ const listingRouter= require("./routes/listing.js");
 const reviewRouter= require("./routes/review.js");
 const userRouter= require("./routes/user.js");
 
-
-//const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 const dbURL=process.env.ATLASDB_URL;
 
-main()
-  .then(async() => {
-    console.log("connected to database");
-    await seedDB();  
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
 async function main() {
-  await mongoose.connect(dbURL);
+  try {
+    await mongoose.connect(dbURL);
+    console.log("✅ Connected to MongoDB");
+
+    await seedDB();
+    console.log("✅ DB Seeded");
+
+    app.listen(port, () => {
+      console.log(`🚀 Server is running on port ${port}`);
+    });
+
+  } catch (err) {
+    console.error("❌ Failed to connect or seed DB:", err);
+    process.exit(1);
+  }
 }
+
+main();
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -80,10 +85,10 @@ app.use(flash());
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use((req, res, next) => {
-  res.locals.currUser = req.user;
-  next();
-});
+// app.use((req, res, next) => {
+//   res.locals.currUser = req.user;
+//   next();
+// });
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -148,10 +153,4 @@ app.use((err, req, res, next) => {
   const message = err.message || "Something went wrong";
 
   res.status(statusCode).render("error.ejs", { err: { statusCode, message } });
-});
-
-
-
-app.listen(port, () => {
-  console.log(`server is listening to port ${port}`);
 });
