@@ -75,16 +75,11 @@ const sessionOptions = {
   }
 }
 
-app.use((req, res, next) => {
-  res.locals.success = req.flash("success");
-  res.locals.error = req.flash("error");
-  res.locals.currUser = req.user; // Make currentUser available in all templates
-  next();
+app.get("/", async (req, res) => {
+  const allListings = await Listing.find({});
+  res.render("listings/index.ejs", { allListings });
 });
 
-app.get("/", (req, res) => {
-   res.render("listings/index.ejs", { allListings });
-});
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -94,6 +89,13 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  res.locals.currUser = req.user; // Make currentUser available in all templates
+  next();
+});
 
 app.use("/listings",listingRouter);
 app.use("/listings/:id/reviews",reviewRouter);
