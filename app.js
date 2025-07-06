@@ -28,26 +28,6 @@ const userRouter= require("./routes/user.js");
 
 const dbURL=process.env.ATLASDB_URL;
 
-async function main() {
-  try {
-    await mongoose.connect(dbURL);
-    console.log("✅ Connected to MongoDB");
-
-    await seedDB();
-    console.log("✅ DB Seeded");
-
-    app.listen(port, () => {
-      console.log(`🚀 Server is running on port ${port}`);
-    });
-
-  } catch (err) {
-    console.error("❌ Failed to connect or seed DB:", err);
-    process.exit(1);
-  }
-}
-
-main();
-
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
@@ -154,3 +134,23 @@ app.use((err, req, res, next) => {
 
   res.status(statusCode).render("error.ejs", { err: { statusCode, message } });
 });
+
+async function main() {
+  try {
+    await mongoose.connect(dbURL);
+    console.log("✅ Connected to MongoDB");
+
+    await seedDB();
+    console.log("✅ DB Seeded");
+
+    app.listen(port, () => {
+      console.log(`🚀 Server is running on port ${port}`);
+    });
+
+  } catch (err) {
+    console.error("❌ Failed to connect or seed DB:", err);
+    process.exit(1);
+  }
+}
+
+main();
