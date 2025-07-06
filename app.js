@@ -9,12 +9,11 @@ const app = express();
 const mongoose = require("mongoose");
 const Listing = require("./models/listing.js");
 const path = require("path");
+const seedDB = require("./seed");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
-const { listingSchema, reviewSchema } = require("./schema.js");
-const Review = require("./models/reviews.js");
 const session=require("express-session");
 const MongoStore=require("connect-mongo");
 const flash = require("connect-flash");
@@ -32,8 +31,9 @@ const userRouter= require("./routes/user.js");
 const dbURL=process.env.ATLASDB_URL;
 
 main()
-  .then(() => {
+  .then(async() => {
     console.log("connected to database");
+    await seedDB();  
   })
   .catch((err) => {
     console.log(err);
