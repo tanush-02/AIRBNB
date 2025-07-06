@@ -94,20 +94,6 @@ async function main() {
       res.render("listings/index.ejs", { allListings });
     });
 
-    app.get("/demouser", async (req, res) => {
-      try {
-        const existingUser = await User.findOne({ username: "demo" });
-        if (existingUser) return res.send("User already exists");
-
-        const newUser = new User({ username: "demo", email: "demo@gmail.com" });
-        const registeredUser = await User.register(newUser, "demo@123");
-        res.send(registeredUser);
-      } catch (e) {
-        console.error(e);
-        res.status(500).send("Something went wrong");
-      }
-    });
-
     // 404 Handler
     app.all("*", (req, res, next) => {
       next(new ExpressError(404, "Page Not Found"));

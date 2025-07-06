@@ -4,7 +4,7 @@ const Listing = require("./models/listing");
 const Review = require("./models/reviews");
 const User = require("./models/user");
 
-const dbURL = process.env.ATLASDB_URL || "mongodb://127.0.0.1:27017/wanderlust";
+const dbURL = process.env.ATLASDB_URL;
 
 const sampleImages = [
   "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85",
@@ -16,7 +16,6 @@ const sampleImages = [
 
 const seedDB = async () => {
   try {
-    await mongoose.connect(dbURL);
     console.log("\u2728 Connected to MongoDB");
 
     await Listing.deleteMany({});
@@ -52,7 +51,7 @@ const seedDB = async () => {
     }
 
     console.log("\u2705 Seeded Listings, Reviews, and Demo User");
-    await mongoose.disconnect();
+    
   } catch (err) {
     console.error("\u274C Seed error:", err);
     process.exit(1);
